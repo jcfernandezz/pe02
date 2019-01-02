@@ -180,9 +180,10 @@ as
 --27/11/17 jcf Creación cfdi 3.3
 --03/04/18 jcf Filtra cantidad!=0
 --13/08/18 jcf Agrega caso de igv incluido en el precio
+--02/01/19 jcf Modifica itemnmbr. Ingresa código sunat en su lugar. Solicitado por J Chiroque.
 --
 		select ROW_NUMBER() OVER(ORDER BY Concepto.LNITMSEQ asc) id, 
-			Concepto.soptype, Concepto.sopnumbe, Concepto.LNITMSEQ, rtrim(Concepto.ITEMNMBR) ITEMNMBR, '' SERLTNUM, 
+			Concepto.soptype, Concepto.sopnumbe, Concepto.LNITMSEQ, '/'+rtrim(Concepto.uscatvls_6)+'/' ITEMNMBR, '' SERLTNUM, 
 			Concepto.ITEMDESC, Concepto.CMPNTSEQ, 
 			rtrim(Concepto.UOFMsat) udemSunat,
 			'' NoIdentificacion,
@@ -244,7 +245,6 @@ as
 			outer apply dbo.fCfdiImpuestosSop(Concepto.SOPNUMBE, Concepto.soptype, Concepto.LNITMSEQ, pr.param4, '%') gra --gratuito
 		where Concepto.CMPNTSEQ = 0					--a nivel kit
 		and Concepto.QUANTITY != 0
-
 go
 
 IF (@@Error = 0) PRINT 'Creación exitosa de: vwCfdiConceptos()'
