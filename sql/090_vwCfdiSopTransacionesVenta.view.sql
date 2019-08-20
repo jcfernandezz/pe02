@@ -11,6 +11,7 @@ alter view dbo.vwCfdiSopTransaccionesVenta
 --08/11/18 jcf Agrega send_email_statements
 --19/11/18 jcf Agrega ORSUBTOT, fechaHora
 --23/05/19 jcf Agrega txrgnnum
+--19/08/19 jcf Agrega ccode
 --
 AS
 
@@ -37,6 +38,7 @@ SELECT	'contabilizado' estadoContabilizado,
 		dbo.fCfdEsVacio(dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.city), 10)) city, 
 		dbo.fCfdEsVacio(dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.[STATE]), 10)) [state], 
 		dbo.fCfdEsVacio(dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.country), 10)) country, 
+		dbo.fCfdEsVacio(dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.CCode), 10)) ccode, 
 		right('00000'+dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.zipcode), 10), 5) zipcode, 
 		cn.send_email_statements,
 		cab.duedate, cab.pymtrmid, cab.glpostdt, 
@@ -78,6 +80,7 @@ SELECT	'contabilizado' estadoContabilizado,
 		dbo.fCfdEsVacio(dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.city), 10)) city, 
 		dbo.fCfdEsVacio(dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.[STATE]), 10)) [state], 
 		dbo.fCfdEsVacio(dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.country), 10)) country, 
+		dbo.fCfdEsVacio(dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.CCode), 10)) ccode, 
 		right('00000'+dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.zipcode), 10), 5) zipcode, 
 		0,
 		cab.duedate, cab.pymtrmid, cab.glpostdt, 
