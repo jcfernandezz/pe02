@@ -41,6 +41,7 @@ create function dbo.fCfdReemplazaCaracteresNI(@texto nvarchar(max))
 returns NVARCHAR(MAX)
 --Propósito. Reemplaza caracteres no imprimibles por espacios
 --26/10/10 jcf Creación
+--23/09/19 jcf Agrega '’'
 --
 as
 begin
@@ -50,6 +51,7 @@ begin
 	select @textoModificado = replace(@textoModificado, char(10), ' ')
 	select @textoModificado = replace(@textoModificado, char(9), ' ')
 	select @textoModificado = replace(@textoModificado, '|', '')
+	select @textoModificado = replace(@textoModificado, '’', '''')
 	return @textoModificado 
 end
 go

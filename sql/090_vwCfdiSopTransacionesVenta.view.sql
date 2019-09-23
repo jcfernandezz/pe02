@@ -12,6 +12,7 @@ alter view dbo.vwCfdiSopTransaccionesVenta
 --19/11/18 jcf Agrega ORSUBTOT, fechaHora
 --23/05/19 jcf Agrega txrgnnum
 --19/08/19 jcf Agrega ccode
+--19/09/19 jcf Obtiene ccode del maestro de clientes
 --
 AS
 
@@ -38,7 +39,7 @@ SELECT	'contabilizado' estadoContabilizado,
 		dbo.fCfdEsVacio(dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.city), 10)) city, 
 		dbo.fCfdEsVacio(dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.[STATE]), 10)) [state], 
 		dbo.fCfdEsVacio(dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.country), 10)) country, 
-		dbo.fCfdEsVacio(dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.CCode), 10)) ccode, 
+		dbo.fCfdEsVacio(dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cn.CCode), 10)) ccode, 
 		right('00000'+dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.zipcode), 10), 5) zipcode, 
 		cn.send_email_statements,
 		cab.duedate, cab.pymtrmid, cab.glpostdt, 

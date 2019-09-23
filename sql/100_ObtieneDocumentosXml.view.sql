@@ -214,10 +214,11 @@ as
 --13/08/18 jcf Agrega caso de igv incluido en el precio
 --14/11/18 jcf Cambios para ubl 2.1
 --13/12/18 jcf Agrega imponibles de inafecto, exonerado, exporta, gratuito
+--23/09/19 jcf Agrega fCfdReemplazaCaracteresNI
 --
 		select ROW_NUMBER() OVER(ORDER BY Concepto.LNITMSEQ asc) id, 
-			Concepto.soptype, Concepto.sopnumbe, Concepto.LNITMSEQ, rtrim(Concepto.ITEMNMBR) ITEMNMBR, '' SERLTNUM, 
-			Concepto.ITEMDESC, Concepto.CMPNTSEQ, 
+			Concepto.soptype, Concepto.sopnumbe, Concepto.LNITMSEQ, rtrim(dbo.fCfdReemplazaCaracteresNI(Concepto.ITEMNMBR)) ITEMNMBR, '' SERLTNUM, 
+			dbo.fCfdReemplazaCaracteresNI(Concepto.ITEMDESC) ITEMDESC, Concepto.CMPNTSEQ, 
 			rtrim(Concepto.UOFMsat) udemSunat,
 			Concepto.uscatvls_6 claveProdSunat,
 			'' NoIdentificacion,
@@ -244,7 +245,10 @@ as
 
 			Concepto.descuento,
 			Concepto.OXTNDPRC + Concepto.descuento descuentoBaseImponible,
-			Concepto.descuento / (Concepto.OXTNDPRC + Concepto.descuento) descuentoPorcentaje,
+			case when (Concepto.OXTNDPRC + Concepto.descuento) != 0 then
+				Concepto.descuento / (Concepto.OXTNDPRC + Concepto.descuento) 
+				else 0 
+				end descuentoPorcentaje,
 			case when isnull(iva.txdtlbse, 3) = 1 and Concepto.descuento != 0 then			--igv incluído
 				'01'		--descuento no afecta la base imponible
 				else '00'	--descuento sí afecta la base imponible
